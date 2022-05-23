@@ -12,7 +12,7 @@ const thoughtSchema = mongoose.Schema(
     createdAt: {
         type: Date,
         default: Date.now,
-        //Add getter method here
+        get: timestamp => format(timestamp)
     },
     username: {
         type: String,
@@ -28,6 +28,12 @@ const thoughtSchema = mongoose.Schema(
       id: false,
 }
 );
+
+//Date formatting function
+function format(time) {
+    const date = new Date(time);
+    return date.toDateString();
+}
 
 thoughtSchema.virtual("reactionCount").get(function() {
     const totalReacts = this.reactions.length;

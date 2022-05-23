@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { format } = require("path");
 
 const reactionSchema = new mongoose.Schema(
 {
@@ -18,7 +19,7 @@ const reactionSchema = new mongoose.Schema(
   createdAt: {
       type: Date,
       default: Date.now,
-      //Add getter method here
+      get: timestamp => format(timestamp)
   }
 },
 {
@@ -29,5 +30,11 @@ const reactionSchema = new mongoose.Schema(
     id: false,
 }
 );
+
+//Date formatting function
+function format(time) {
+    const date = new Date(time);
+    return date.toDateString();
+}
 
 module.exports = reactionSchema;
