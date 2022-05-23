@@ -31,6 +31,7 @@ const userSchema = new mongoose.Schema(
   {
     toJSON: {
       virtuals: true,
+      getters: true
     },
     id: false,
   }
