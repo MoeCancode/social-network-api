@@ -113,5 +113,25 @@ async function addFriend(req, res) {
     }
 }
 
+//Remove friend
+async function removeFriend(req, res) {
+    try {
+        const friendRemove = await User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $pull: { friends: req.params.friendId } },
+            { new: true }
+          );
+          if(friendRemove) {
+              res.json({message: "Friend removed!"})
+          }
+          else {
+              res.status(404).json({message: "Friend or user not found!"});
+          }
+    } catch (error) {
+        res.status(500).json(error);
+        console.log(error);
+    }
+}
 
-module.exports = {getAllUsers, getOneUser, createUser, updateUser, deleteUser, addFriend};
+
+module.exports = {getAllUsers, getOneUser, createUser, updateUser, deleteUser, addFriend, removeFriend};
