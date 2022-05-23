@@ -5,7 +5,7 @@ async function getAllUsers() {
         const users = await User.find();
         res.json(users);
     } catch (error) {
-        res.status(500);
+        res.status(500).json(error);
         console.log(error);
     }
 }
@@ -23,8 +23,18 @@ async function getOneUser(req, res) {
     } catch (error) {
         res.status(500);
         console.log(error);
-    }
-    
+    } 
 }
 
-module.exports = {getAllUsers, getOneUser}
+async function createUser(req, res) {
+    try {
+        const newUser= await User.create(req.body);
+        res.json(newUser);
+    } catch (error) {
+        res.status(500).json(error);
+        console.log(error);
+        
+    }
+}
+
+module.exports = {getAllUsers, getOneUser, createUser}
