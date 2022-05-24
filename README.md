@@ -7,10 +7,10 @@ A Basic API framework for a social-media application. It creates Models for User
 ## Table of Contents 📖
 <hr>
 
-* [ Installation ](#installation-⚡️)
-* [ Usage ](#usage-💡)
-* [ Technologies ](#technologies-🔧)
-* [ Contributors ](#contributors-🙌)
+* [ Installation -⚡️](#installation)
+* [ Usage -💡](#usage)
+* [ Technologies -🔧](#technologies)
+* [ Contributors -🙌](#contributors)
 * [ License ](#license)
 
 <br>
