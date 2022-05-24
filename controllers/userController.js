@@ -66,11 +66,9 @@ async function deleteUser(req, res) {
         const toBeDeletedUser = await User.findOne(
             {_id: req.params.userId},
         ); 
-
+            console.log("User object: " + toBeDeletedUser);
         if(toBeDeletedUser) {
-            while(toBeDeletedUser.thoughts.length > 0) {
-                toBeDeletedUser.thoughts.pop();
-            }
+                toBeDeletedUser.thoughts = [];
             await User.findOneAndDelete(
                 {_id: req.params.userId}
             ); 

@@ -33,7 +33,7 @@ async function getOneThought(req, res) {
 async function createThought(req, res) {
     try {
         const newThought = await Thought.create(req.body);
-        const thoughtAuthor = User.findOneAndUpdate(
+        const thoughtAuthor = await User.findOneAndUpdate(
             {_id: req.body.userId},
             { $addToSet: { thoughts: newThought._id } },
             {new: true}
@@ -73,8 +73,8 @@ async function updateThought(req, res) {
 //Delete thought
 async function deleteThought(req, res) {
     try {
-        const thoughtToDelete = Thought.findOneAndDelete(
-            {_id: req.params.ThoughtId}
+        const thoughtToDelete = await Thought.findOneAndDelete(
+            {_id: req.params.thoughtId}
         );
         if(thoughtToDelete) {
             const thoughtAuthor = await User.findOneAndUpdate(
