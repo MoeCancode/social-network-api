@@ -1,5 +1,4 @@
-const {User, Thought} = require("../models/");
-const { where, findOneAndUpdate } = require("../models/User");
+const {User} = require("../models/");
 
 //Get all users
 async function getAllUsers(req, res) {
