@@ -98,5 +98,45 @@ async function deleteThought(req, res) {
     }
 }
 
+//React to thought
+async function reactToThought(req, res) {
+    try {
+        const thoughtToReactTo = await Thought.findOneAndUpdate(
+            {_id: req.params.thoughtId},
+            {$addToSet: {reactions: req.body} },
+            { runValidators: true, new: true }
+        );
+        if(thoughtToReactTo) {
+            res.json({message: "React added!"});
+        }
+        else {
+            res.status(404).json({message: "Thought not found!"});
+        }
+    } catch (error) {
+        res.status(500).json(error);
+        console.log(error);
+    }
+}
 
-module.exports = {getAllThoughts, getOneThought, createThought, updateThought, deleteThought};
+//remove reaction from thought
+async function removeReaction(req, res) {
+    try {
+        const reactedThought = await Thought.findOneAndUpdate(
+            {_id: req.params.thoughtId},
+            {$pull: {reactions: { reactionId: req.params.reactionId }}},
+            {runValidators: true, new: true }
+        )
+        if(reactedThought) {
+            res.json({message: "Reaction removed!"});
+        }
+        else {
+            res.status(404).json({message: "Thought not found~"})
+        }
+    } catch (error) {
+        res.status(500).json(error);
+        console.log(error);
+    }
+}
+
+
+module.exports = {getAllThoughts, getOneThought, createThought, updateThought, deleteThought, reactToThought, removeReaction};
