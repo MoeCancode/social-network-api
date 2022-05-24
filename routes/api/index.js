@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const userRoutes = require("./userRoutes");
-//require thought routes here
+const thoughtRoutes = require("./thoughtRoutes")
 
-router.use('/users', userRoutes);
-//Use thought routes here
+router.use("/users", userRoutes);
+router.use("/thoughts", thoughtRoutes);
 
 module.exports = router;
