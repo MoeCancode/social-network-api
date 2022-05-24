@@ -70,5 +70,33 @@ async function updateThought(req, res) {
     }
 }
 
+//Delete thought
+async function deleteThought(req, res) {
+    try {
+        const thoughtToDelete = Thought.findOneAndDelete(
+            {_id: req.params.ThoughtId}
+        );
+        if(thoughtToDelete) {
+            const thoughtAuthor = await User.findOneAndUpdate(
+                { thoughts: req.params.thoughtId },
+                { $pull: { thoughts: req.params.thoughtId } },
+                { new: true},
+            );
+                if(thoughtAuthor) {
+                    res.json({message: "Thought deleted"});
+                }
+                else {
+                    res.status(404).json({message: "User not found"});
+                }
+        }
+        else {
+            res.status(404).json({message: "Thought not found!"});
+        }
+    } catch (error) {
+        res.status(500).json(error);
+        console.log(error);
+    }
+}
 
-module.exports = {getAllThoughts, getOneThought, createThought, updateThought};
+
+module.exports = {getAllThoughts, getOneThought, createThought, updateThought, deleteThought};
