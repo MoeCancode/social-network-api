@@ -50,5 +50,25 @@ async function createThought(req, res) {
     }
 }
 
+//Update thought
+async function updateThought(req, res) {
+    try {
+        const thoughtToUpdate = await Thought.findOneAndUpdate(
+            {_id: req.params.thoughtId},
+            { $set: req.body },
+            { runValidators: true, new: true }
+        )
+        if(thoughtToUpdate) {
+            res.json({message: "Thought has been updated"});
+        }
+        else {
+            res.status(404).json({message: "Thought not found!"});
+        }
+    } catch (error) {
+        res.status(500).json(error);
+        console.log(error);
+    }
+}
 
-module.exports = {getAllThoughts, getOneThought, createThought}
+
+module.exports = {getAllThoughts, getOneThought, createThought, updateThought};
