@@ -2,7 +2,7 @@ const {User, Thought} = require("../models/");
 const { where, findOneAndUpdate } = require("../models/User");
 
 //Get all users
-async function getAllUsers() {
+async function getAllUsers(req, res) {
     try {
         const users = await User.find();
         res.json(users);
@@ -72,7 +72,7 @@ async function deleteUser(req, res) {
             while(toBeDeletedUser.thoughts.length > 0) {
                 toBeDeletedUser.thoughts.pop();
             }
-            const sameUser = await User.findOneAndDelete(
+            await User.findOneAndDelete(
                 {_id: req.params.userId}
             ); 
             res.json({message: "User deleted!"});
