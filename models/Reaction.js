@@ -19,7 +19,7 @@ const reactionSchema = new mongoose.Schema(
   createdAt: {
       type: Date,
       default: Date.now,
-      get: timestamp => format(timestamp)
+      get: timestamp => formatTime(timestamp)
   }
 },
 {
@@ -32,7 +32,7 @@ const reactionSchema = new mongoose.Schema(
 );
 
 //Date formatting function
-function format(time) {
+function formatTime(time) {
     const date = new Date(time);
     return date.toDateString();
 }
